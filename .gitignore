@@ -32,13 +32,12 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files
+# env files (never commit real secrets)
 .env
 .env.local
-.env.example
-.env.local.example
 .env*.local
 .env*
+!.env.local.example
 
 # vercel
 .vercel
@@ -46,4 +45,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-!.env.local.example
+
+# Android release APKs — distribute via GitHub Releases, not git
+/public/downloads/*.apk
+/public/downloads/*.apk.idsig
