@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="accent_sky_blue">#38BDF8</color>
+    <color name="bg_light">#F8FAFC</color>
+    <color name="launcher_background">#FFFFFF</color>
+    <color name="primary_dark">#0B1D47</color>
+    <color name="primary_royal_blue">#1A4BA8</color>
+    <color name="text_dark">#0F172A</color>
+    <color name="white">#FFFFFF</color>
+    <string name="app_name">RCF Ikole</string>
+    <string name="default_web_url">https://rcf-ikole-ushering-app.vercel.app</string>
+    <string name="error_offline">No internet connection. Please check your network and tap Retry.</string>
+    <string name="error_page">The page could not be loaded. Please check your connection and try again.</string>
+    <string name="retry">Retry</string>
+    <style name="Theme.RCFIkoleUshering" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:statusBarColor">@color/primary_royal_blue</item>
+        <item name="android:windowBackground">@color/bg_light</item>
+        <item name="colorPrimary">@color/primary_royal_blue</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="colorAccent">@color/accent_sky_blue</item>
+    </style>
+</resources>

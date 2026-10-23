@@ -1,6 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">RCF Ikole Ushering Unit</string>
-    <string name="default_web_url">https://e-ushering-app.vercel.app</string>
+    <string name="app_name">RCF Ikole</string>
+    <string name="default_web_url">https://rcf-ikole-ushering-app.vercel.app</string>
     <string name="error_offline">No internet connection. Please check your network and tap Retry.</string>
+    <string name="error_page">The page could not be loaded. Please check your connection and try again.</string>
     <string name="retry">Retry</string>
 </resources>

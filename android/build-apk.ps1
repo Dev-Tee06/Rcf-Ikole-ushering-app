@@ -16,14 +16,15 @@ if (-not (Test-Path $env:RCF_RELEASE_STORE_FILE -PathType Leaf)) {
     throw 'RCF_RELEASE_STORE_FILE must point to the persistent release keystore.'
 }
 
-$gradle = Get-Command gradle -ErrorAction SilentlyContinue
-if (-not $gradle) {
-    throw 'Gradle is not installed or not on PATH. Install Gradle 8.2+ and retry.'
+$gradle = Join-Path $PSScriptRoot 'gradlew.bat'
+if (-not (Test-Path $gradle -PathType Leaf)) {
+    throw 'gradlew.bat not found in the android directory.'
 }
 
 Push-Location $PSScriptRoot
 try {
-    & $gradle.Source --no-daemon :app:assembleRelease
+    $env:ANDROID_HOME = "$env:LOCALAPPDATA\Android\Sdk"
+    & cmd.exe /c "`"$gradle`" --no-daemon :app:assembleRelease 2>&1"
     if ($LASTEXITCODE -ne 0) { throw 'Gradle release build failed.' }
 
     $builtApk = Join-Path $PSScriptRoot 'app/build/outputs/apk/release/app-release.apk'
@@ -33,16 +34,16 @@ try {
     Copy-Item -LiteralPath $builtApk -Destination $destination -Force
 
     $sdk = Join-Path $env:LOCALAPPDATA 'Android/Sdk'
-    $apksigner = Join-Path $sdk 'build-tools/34.0.0/apksigner.bat'
-    $aapt = Join-Path $sdk 'build-tools/34.0.0/aapt.exe'
+    $apksigner = Join-Path $sdk 'build-tools/35.0.0/apksigner.bat'
+    $aapt = Join-Path $sdk 'build-tools/35.0.0/aapt.exe'
     & $apksigner verify --verbose --print-certs $destination
     if ($LASTEXITCODE -ne 0) { throw 'The release APK signature did not verify.' }
     $metadata = & $aapt dump badging $destination
     if ($LASTEXITCODE -ne 0) { throw 'Could not read release APK package metadata.' }
-    if (($metadata -join "`n") -notmatch "package: name='com\.rcf\.ikole\.ushering' versionCode='2' versionName='1\.0\.1'") {
+    if (($metadata -join "`n") -notmatch "package: name='com\.rcf\.ikole\.ushering' versionCode='3' versionName='1\.1\.0'") {
         throw 'Release APK package ID or version metadata is incorrect.'
     }
-    if (($metadata -join "`n") -notmatch "application-label:'RCF Ikole Ushering Unit'") {
+    if (($metadata -join "`n") -notmatch "application-label:'RCF Ikole'") {
         throw 'Release APK application name is incorrect.'
     }
     Write-Host "Signed release APK ready: $destination"

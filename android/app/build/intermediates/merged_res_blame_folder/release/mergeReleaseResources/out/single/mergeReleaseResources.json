@@ -1,0 +1,62 @@
+[
+    {
+        "merged": "com.rcf.ikole.ushering.app-release-33:/drawable_progress_bar_custom.xml.flat",
+        "source": "com.rcf.ikole.ushering.app-main-34:/drawable/progress_bar_custom.xml"
+    },
+    {
+        "merged": "com.rcf.ikole.ushering.app-release-33:/mipmap-xxhdpi_ic_launcher.png.flat",
+        "source": "com.rcf.ikole.ushering.app-main-34:/mipmap-xxhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.rcf.ikole.ushering.app-release-33:/mipmap-xhdpi_ic_launcher_round.png.flat",
+        "source": "com.rcf.ikole.ushering.app-main-34:/mipmap-xhdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "com.rcf.ikole.ushering.app-release-33:/mipmap-mdpi_ic_launcher.png.flat",
+        "source": "com.rcf.ikole.ushering.app-main-34:/mipmap-mdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.rcf.ikole.ushering.app-release-33:/mipmap-mdpi_ic_launcher_round.png.flat",
+        "source": "com.rcf.ikole.ushering.app-main-34:/mipmap-mdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "com.rcf.ikole.ushering.app-release-33:/mipmap-hdpi_ic_launcher.png.flat",
+        "source": "com.rcf.ikole.ushering.app-main-34:/mipmap-hdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.rcf.ikole.ushering.app-release-33:/mipmap-xxhdpi_ic_launcher_round.png.flat",
+        "source": "com.rcf.ikole.ushering.app-main-34:/mipmap-xxhdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "com.rcf.ikole.ushering.app-release-33:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "com.rcf.ikole.ushering.app-main-34:/mipmap-anydpi-v26/ic_launcher_round.xml"
+    },
+    {
+        "merged": "com.rcf.ikole.ushering.app-release-33:/layout_activity_main.xml.flat",
+        "source": "com.rcf.ikole.ushering.app-main-34:/layout/activity_main.xml"
+    },
+    {
+        "merged": "com.rcf.ikole.ushering.app-release-33:/drawable-nodpi_rcf_logo.png.flat",
+        "source": "com.rcf.ikole.ushering.app-main-34:/drawable-nodpi/rcf_logo.png"
+    },
+    {
+        "merged": "com.rcf.ikole.ushering.app-release-33:/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "com.rcf.ikole.ushering.app-main-34:/mipmap-anydpi-v26/ic_launcher.xml"
+    },
+    {
+        "merged": "com.rcf.ikole.ushering.app-release-33:/mipmap-xhdpi_ic_launcher.png.flat",
+        "source": "com.rcf.ikole.ushering.app-main-34:/mipmap-xhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.rcf.ikole.ushering.app-release-33:/mipmap-xxxhdpi_ic_launcher.png.flat",
+        "source": "com.rcf.ikole.ushering.app-main-34:/mipmap-xxxhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.rcf.ikole.ushering.app-release-33:/mipmap-hdpi_ic_launcher_round.png.flat",
+        "source": "com.rcf.ikole.ushering.app-main-34:/mipmap-hdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "com.rcf.ikole.ushering.app-release-33:/mipmap-xxxhdpi_ic_launcher_round.png.flat",
+        "source": "com.rcf.ikole.ushering.app-main-34:/mipmap-xxxhdpi/ic_launcher_round.png"
+    }
+]
