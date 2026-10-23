@@ -105,7 +105,7 @@ export function HomeClient({
                 </div>
                 <div className="duty-service-title">
                   {nextAssignment.service_occurrence?.service?.name ||
-                    `${nextAssignment.service_occurrence?.service_type?.toUpperCase()} SERVICE`}
+                    `${nextAssignment.service_occurrence?.service_type?.charAt(0).toUpperCase()}${nextAssignment.service_occurrence?.service_type?.slice(1)} Service`}
                 </div>
                 <div className="duty-date-time">
                   <span className="duty-detail-item">
@@ -125,12 +125,16 @@ export function HomeClient({
                       <circle cx="12" cy="12" r="10" />
                       <polyline points="12 6 12 12 16 14" />
                     </svg>
-                    {formatServiceTime(nextAssignment.service_occurrence!.start_time)} –{' '}
+                    {formatServiceTime(nextAssignment.service_occurrence!.start_time)}{' – '}
                     {formatServiceTime(nextAssignment.service_occurrence!.end_time)}
                   </span>
                 </div>
                 <div className="duty-badge-row">
-                  <span className="status-badge-green">Roster Published</span>
+                  {nextAssignment.service_occurrence?.roster_published ? (
+                    <span className="status-badge-green">Roster Published</span>
+                  ) : (
+                    <span className="status-badge-blue">Assigned</span>
+                  )}
                   <Link href="/services" className="widget-link-arrow">
                     Full Roster &rarr;
                   </Link>
@@ -138,10 +142,10 @@ export function HomeClient({
               </>
             ) : nextGeneralOccurrence ? (
               <>
-                <div className="duty-post-name unassigned">Unassigned</div>
+                <div className="duty-post-name unassigned">Not Yet Assigned</div>
                 <div className="duty-service-title">
                   {(nextGeneralOccurrence as any).service?.name ||
-                    `${nextGeneralOccurrence.service_type?.toUpperCase()} SERVICE`}
+                    `${nextGeneralOccurrence.service_type?.charAt(0).toUpperCase()}${nextGeneralOccurrence.service_type?.slice(1)} Service`}
                 </div>
                 <div className="duty-date-time">
                   <span className="duty-detail-item">
@@ -152,7 +156,7 @@ export function HomeClient({
                   </span>
                 </div>
                 <div className="duty-badge-row">
-                  <span className="status-badge-gray">No Assignment Scheduled</span>
+                  <span className="status-badge-gray">No Assignment Yet</span>
                   <Link href="/services" className="widget-link-arrow">
                     Services &rarr;
                   </Link>

@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">RCF Ikole Ushering</string>
-    <string name="default_web_url">http://10.0.2.2:3000</string>
+    <string name="app_name">RCF IKOLE</string>
+    <string name="default_web_url">https://e-ushering-app.vercel.app</string>
     <string name="error_offline">No internet connection. Please check your network and tap Retry.</string>
     <string name="retry">Retry</string>
 </resources>

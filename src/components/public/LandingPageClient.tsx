@@ -1,9 +1,7 @@
 'use client'
 
-import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { LoadingScreen } from '@/components/ui/LoadingScreen'
 
 interface DressCode {
   id: string
@@ -36,19 +34,6 @@ export function LandingPageClient({
   sermon,
   content = {},
 }: LandingPageClientProps) {
-  const [showLoading, setShowLoading] = useState(true)
-
-  useEffect(() => {
-    // If already loaded in this browser session, skip immediately
-    if (sessionStorage.getItem('rcf_loaded')) {
-      setShowLoading(false)
-    }
-  }, [])
-
-  const handleLoadingComplete = () => {
-    setShowLoading(false)
-  }
-
   // Content defaults
   const unitIntro =
     content.unit_introduction ||
@@ -62,13 +47,9 @@ export function LandingPageClient({
 
   return (
     <>
-      {showLoading && <LoadingScreen onComplete={handleLoadingComplete} />}
-
       <div
         className="landing-wrapper"
         style={{
-          opacity: showLoading ? 0 : 1,
-          transition: 'opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1)',
           minHeight: '100vh',
           display: 'flex',
           flexDirection: 'column',

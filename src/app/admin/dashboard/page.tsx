@@ -33,10 +33,10 @@ export default async function AdminDashboardPage() {
   const adminClient = createAdminClient()
 
   // 3. Fetch all registered unit member accounts (profiles)
-  const { data: allMembers } = await adminClient
-    .from('profiles')
-    .select('*')
-    .order('created_at', { ascending: false })
+  const [{ data: allMembers }, { data: existingPosts }] = await Promise.all([
+    adminClient.from('profiles').select('*').order('created_at', { ascending: false }),
+    adminClient.from('duty_posts').select('*'),
+  ])
 
   // 4. Ensure the 8 exact active duty posts exist and are active
   const ACTIVE_POSITION_NAMES = [
@@ -49,10 +49,6 @@ export default async function AdminDashboardPage() {
     'Door',
     'Records',
   ]
-
-  const { data: existingPosts } = await adminClient
-    .from('duty_posts')
-    .select('*')
 
   const existingMap = new Map<string, any>()
   existingPosts?.forEach((p) => {
@@ -121,9 +117,19 @@ export default async function AdminDashboardPage() {
   futureLimitDate.setDate(futureLimitDate.getDate() + 28)
   const futureLimitStr = futureLimitDate.toISOString().split('T')[0]
 
-  const { data: serviceOccurrences } = await adminClient
-    .from('service_occurrences')
-    .select(`
+  const thirtyDaysAgo = new Date()
+  thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30)
+  const thirtyDaysAgoStr = thirtyDaysAgo.toISOString().split('T')[0]
+
+  const [
+    { data: serviceOccurrences },
+    { data: accountabilitySchedules },
+    { data: accountabilityCompletions },
+    { data: sermonsList },
+    { data: recentAnnouncements },
+    { data: latestDressCode },
+  ] = await Promise.all([
+    adminClient.from('service_occurrences').select(`
       id,
       service_id,
       service_type,
@@ -141,7 +147,15 @@ export default async function AdminDashboardPage() {
     `)
     .gte('occurrence_date', pastLimitStr)
     .lte('occurrence_date', futureLimitStr)
-    .order('occurrence_date', { ascending: false })
+    .order('occurrence_date', { ascending: false }),
+    adminClient.from('accountability_schedules').select('*').eq('is_active', true),
+    adminClient.from('accountability_completions').select('*')
+      .gte('accountability_date', thirtyDaysAgoStr)
+      .order('accountability_date', { ascending: false }).limit(300),
+    adminClient.from('sermons').select('*').order('created_at', { ascending: false }),
+    adminClient.from('announcements').select('*').order('created_at', { ascending: false }).limit(3),
+    adminClient.from('dress_codes').select('*').order('applicable_sunday', { ascending: false }).limit(1).maybeSingle(),
+  ])
 
   const occurrenceIds = (serviceOccurrences || []).map((o) => o.id)
 
@@ -166,44 +180,6 @@ export default async function AdminDashboardPage() {
 
     attendanceRecords = attRecords || []
   }
-
-  // 8. Fetch accountability schedules
-  const { data: accountabilitySchedules } = await adminClient
-    .from('accountability_schedules')
-    .select('*')
-    .eq('is_active', true)
-
-  // 9. Fetch recent accountability completions (last 30 days)
-  const thirtyDaysAgo = new Date()
-  thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30)
-  const thirtyDaysAgoStr = thirtyDaysAgo.toISOString().split('T')[0]
-
-  const { data: accountabilityCompletions } = await adminClient
-    .from('accountability_completions')
-    .select('*')
-    .gte('accountability_date', thirtyDaysAgoStr)
-    .order('accountability_date', { ascending: false })
-    .limit(300)
-
-  // 10. Fetch sermons list (all)
-  const { data: sermonsList } = await adminClient
-    .from('sermons')
-    .select('*')
-    .order('created_at', { ascending: false })
-
-  // 11. Fetch announcements and dress codes for pulse overview
-  const { data: recentAnnouncements } = await adminClient
-    .from('announcements')
-    .select('*')
-    .order('created_at', { ascending: false })
-    .limit(3)
-
-  const { data: latestDressCode } = await adminClient
-    .from('dress_codes')
-    .select('*')
-    .order('applicable_sunday', { ascending: false })
-    .limit(1)
-    .maybeSingle()
 
   // Calculate metrics
   const activeUshersCount = (allMembers || []).filter((m) => m.status === 'active').length

@@ -13,7 +13,8 @@ $apksigner = "$buildTools\apksigner.bat"
 $javac = "C:\Program Files\Eclipse Adoptium\jdk-17.0.20.101-hotspot\bin\javac.exe"
 $keytool = "C:\Program Files\Eclipse Adoptium\jdk-17.0.20.101-hotspot\bin\keytool.exe"
 
-Write-Host ">>> Starting Android APK Build for RCF Ikole Ushering..."
+Write-Host ">>> Starting Android APK Build for RCF Ikole (RCF IKOLE)..."
+Write-Host "(Icons pre-generated from logo.png at correct resolutions)"
 
 $buildDir = "android\build"
 $compiledResDir = "$buildDir\compiled_res"
@@ -23,16 +24,6 @@ $dexDir = "$buildDir\dex"
 $unalignedApk = "$buildDir\unaligned.apk"
 $alignedApk = "$buildDir\aligned.apk"
 $finalApk = "public\downloads\rcf-ikole-ushering.apk"
-
-# Ensure valid PNG launcher icons
-$realPng = "public\logo-backup.png"
-$mipmapFolders = @('mipmap-mdpi', 'mipmap-hdpi', 'mipmap-xhdpi', 'mipmap-xxhdpi', 'mipmap-xxxhdpi')
-foreach ($f in $mipmapFolders) {
-    $dir = "android\app\src\main\res\$f"
-    if (-not (Test-Path $dir)) { New-Item -ItemType Directory -Force -Path $dir | Out-Null }
-    Copy-Item -Force $realPng "$dir\ic_launcher.png"
-    Copy-Item -Force $realPng "$dir\ic_launcher_round.png"
-}
 
 # Ensure clean build directories
 Remove-Item -Recurse -Force $buildDir -ErrorAction SilentlyContinue
