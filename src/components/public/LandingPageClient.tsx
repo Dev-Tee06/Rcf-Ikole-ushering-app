@@ -43,7 +43,7 @@ export function LandingPageClient({
     content.unit_purpose ||
     'To foster divine order, heartfelt service, and fervent prayer in every service, ensuring every congregant is welcomed into an environment of love, honor, and spiritual readiness.'
 
-  const apkDownloadUrl = content.apk_download_url || '/downloads/rcf-ikole-ushering.apk'
+  const apkDownloadUrl = '/downloads/rcf-ikole-ushering.apk'
 
   return (
     <>
@@ -892,7 +892,7 @@ export function LandingPageClient({
                   <polyline points="7 10 12 15 17 10" />
                   <line x1="12" y1="15" x2="12" y2="3" />
                 </svg>
-                Download APK (v1.0.0)
+                Download APK
               </a>
             </div>
 
@@ -903,8 +903,11 @@ export function LandingPageClient({
                 marginTop: '1.25rem',
               }}
             >
-              Compatible with Android 7.0 and newer • Direct sideload APK • Size: ~2.6 MB
+              Compatible with Android 7.0 and newer • Direct sideload APK
             </span>
+            <p style={{ fontSize: '0.8125rem', color: 'rgba(255, 255, 255, 0.72)', marginTop: '0.75rem' }}>
+              If the download does not start, tap the button again or <a href={apkDownloadUrl} style={{ color: '#ffffff', textDecoration: 'underline' }}>retry the APK download</a>.
+            </p>
           </div>
         </section>
 

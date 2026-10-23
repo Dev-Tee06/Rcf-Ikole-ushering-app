@@ -1,4 +1,25 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+This is the RCF Ikole Ushering Unit web app and Android WebView client.
+
+## Android release APK
+
+The website serves `public/downloads/rcf-ikole-ushering.apk` at `/downloads/rcf-ikole-ushering.apk`. The response headers are configured in `next.config.ts` to use the Android APK MIME type and a stable attachment filename.
+
+Build a signed release on a Windows machine with Android SDK build tools, JDK 17, and Gradle 8.2 or newer installed. Create the long-lived release keystore once and back it up securely outside this repository:
+
+```powershell
+keytool -genkeypair -v -keystore "$env:USERPROFILE\rcf-ushering-release.jks" -alias rcf-ushering -keyalg RSA -keysize 3072 -validity 10000
+$env:RCF_RELEASE_STORE_FILE = "$env:USERPROFILE\rcf-ushering-release.jks"
+$storeSecret = Read-Host 'Keystore password' -AsSecureString
+$env:RCF_RELEASE_STORE_PASSWORD = [Net.NetworkCredential]::new('', $storeSecret).Password
+$env:RCF_RELEASE_KEY_ALIAS = 'rcf-ushering'
+$keySecret = Read-Host 'Key password' -AsSecureString
+$env:RCF_RELEASE_KEY_PASSWORD = [Net.NetworkCredential]::new('', $keySecret).Password
+./android/build-apk.ps1
+```
+
+Keep the keystore and its passwords in a secure backup/password manager. Never commit them or place them in client-visible environment variables. Keep the same keystore for every update; Android rejects upgrades signed by a different key. The APK currently present in the repository was signed with the former debug keystore, so an app installed from that artifact cannot be upgraded in place with a newly generated release key. Arrange a clean reinstall or securely migrate the old signing identity before publishing the first release-signed update.
+
+The production WebView host is `https://e-ushering-app.vercel.app`. Deploy the site and APK together so the stable download path serves the same signed release artifact built above.
 
 ## Getting Started
 
