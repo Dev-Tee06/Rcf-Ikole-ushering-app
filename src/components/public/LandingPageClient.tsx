@@ -43,7 +43,7 @@ export function LandingPageClient({
     content.unit_purpose ||
     'To foster divine order, heartfelt service, and fervent prayer in every service, ensuring every congregant is welcomed into an environment of love, honor, and spiritual readiness.'
 
-  const apkDownloadUrl = '/downloads/rcf-ikole-ushering.apk'
+  const apkDownloadUrl = 'https://github.com/Dev-Tee06/Rcf-Ikole-ushering-app/releases/download/v1.1.0/rcf-ikole-ushering.apk'
 
   return (
     <>
